@@ -4,7 +4,7 @@ export class AddIngredient extends Component {
   render(){
     return(
       <div>
-        Ok
+        {this.props.ingredient}
       </div>
     )
   }

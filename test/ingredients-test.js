@@ -27,7 +27,7 @@ describe('ingredientsReducer', () => {
   it('gives each ingredient an id', ()=> {
     let newStore = configureStore()
     store.dispatch({type: 'CREATE_INGREDIENT', payload: {name: 'mushrooms', calories: 20}})
-    expect(store.getState().ingredients[0].id.length > 0).to.equal(true)
+    expect(store.getState().ingredients[0].id > 0).to.equal(true)
   })
 
   it('gives each ingredient an id', ()=> {
