@@ -33,18 +33,6 @@ export class RecipesInput extends Component {
 
 
   render(){
-    const unselectedIngredients = []
-    const selectedIngredients = []
-    const ingredients = this.props.ingredients
-    for(let i = 0; i < this.props.ingredients.length; i++){
-      if(this.props.ingredientIds){
-        if(this.props.ingredientIds.includes(ingredients[i].id)){
-          selectedIngredients.push(ingredients[i])
-        } else {
-          unselectedIngredients.push(ingredients[i])
-        }
-      }
-    }
     return(
       <div>
         RecipesInput Component
@@ -53,7 +41,7 @@ export class RecipesInput extends Component {
           <input type="text" onChange={this.handleCalorieChange.bind(this)} value={this.state.calories} />
           <input type="submit" />
         </form>
-        <ConnectedAddIngredients selectedIngredients={selectedIngredients} unselectedIngredients={unselectedIngredients}/>
+        <ConnectedAddIngredients />
       </div>
     )
   }
