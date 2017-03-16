@@ -9,7 +9,6 @@ export class Recipes extends Component {
         {recipe.name}
         <ConnectedAddIngredients recipeId={recipe.id}/>
       </li>
-
     )
     return(
         <div>
@@ -22,7 +21,6 @@ export class Recipes extends Component {
 }
 
 function mapStateToProps(state){
-  debugger;
   return {
     recipes: state.recipes
   }
