@@ -28,19 +28,32 @@ export class RecipesInput extends Component {
 
   handleSubmit(e){
     e.preventDefault()
-    this.props.addRecipe(this.state)
+    this.props.addRecipe(this.state, this.props.ingredientIds)
   }
 
 
   render(){
+    const unselectedIngredients = []
+    const selectedIngredients = []
+    const ingredients = this.props.ingredients
+    for(let i = 0; i < this.props.ingredients.length; i++){
+      if(this.props.ingredientIds){
+        if(this.props.ingredientIds.includes(ingredients[i].id)){
+          selectedIngredients.push(ingredients[i])
+        } else {
+          unselectedIngredients.push(ingredients[i])
+        }
+      }
+    }
     return(
       <div>
+        RecipesInput Component
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" onChange={this.handleNameChange.bind(this)} value={this.state.name} />
           <input type="text" onChange={this.handleCalorieChange.bind(this)} value={this.state.calories} />
           <input type="submit" />
         </form>
-        <ConnectedAddIngredients />
+        <ConnectedAddIngredients selectedIngredients={selectedIngredients} unselectedIngredients={unselectedIngredients}/>
       </div>
     )
   }
@@ -50,4 +63,8 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({addRecipe: addRecipe}, dispatch)
 }
 
-export const ConnectedRecipesInput = connect(null, mapDispatchToProps)(RecipesInput)
+function mapStateToProps(state){
+  return {ingredientIds: state.recipeForm.ingredientIds, ingredients: state.ingredients}
+}
+
+export const ConnectedRecipesInput = connect(mapStateToProps, mapDispatchToProps)(RecipesInput)

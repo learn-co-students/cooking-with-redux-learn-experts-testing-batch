@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { ConnectedAddIngredient } from './AddIngredient'
 
 export class Ingredients extends Component {
   render(){
-    const ingredients = this.props.ingredients.map((ingredient, index) =>
-      <li key={index}>{ingredient.name}</li>
+    const unselectedIngredients = this.props.unselectedIngredients
+    const ingredients = this.props.ingredients.map((ingredient, index) =>{
+      if(unselectedIngredients && unselectedIngredients.includes(ingredient)){
+        return <ConnectedAddIngredient ingredient={ingredient.name} id={ingredient.id}/>
+      } else {
+        return <li>{ingredient.name}</li>
+      }
+      }
       )
     return(
         <div>
