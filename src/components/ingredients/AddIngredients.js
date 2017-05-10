@@ -1,13 +1,33 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import {ConnectedIngredientsInput} from './IngredientsInput'
+import {ConnectedIngredients} from './Ingredients'
+import {ConnectedAddIngredient} from './AddIngredient'
 
 export class AddIngredients extends Component {
   render(){
+    const unselectedIngredients = this.props.unselectedIngredients.map(ingredient =>
+      <ConnectedAddIngredient ingredient={ingredient.name} id={ingredient.id} />
+    )
+    const selectedIngredients = this.props.selectedIngredients.map(ingredient =>
+      <li>{ingredient.name}</li>
+    )
     return(
       <div>
-          Add More Ingredients
+        <ConnectedIngredientsInput />
+        {unselectedIngredients}
+        {selectedIngredients}
       </div>
     )
   }
 }
 
-export const ConnectedAddIngredients =  AddIngredients
+function mapStateToProps(state){
+  return {
+    ingredients: state.ingredients,
+    unselectedIngredients: state.ingredients.filter(ingredient => !state.recipeForm.ingredientIds.includes(ingredient.id)),
+    selectedIngredients: state.ingredients.filter(ingredient => state.recipeForm.ingredientIds.includes(ingredient.id))
+  }
+}
+
+export const ConnectedAddIngredients =  connect(mapStateToProps)(AddIngredients)

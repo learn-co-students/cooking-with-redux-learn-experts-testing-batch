@@ -27,7 +27,7 @@ describe('recipesReducer', () => {
   it('gives each recipe an id', ()=> {
     let newStore = configureStore()
     store.dispatch({type: 'ADD_RECIPE', payload: {name: 'mushrooms', calories: 20}})
-    expect(store.getState().recipes[0].id.length > 0).to.equal(true)
+    expect(store.getState().recipes[0].id > 0).to.equal(true)
   })
 
   it('gives each recipe an id', ()=> {
